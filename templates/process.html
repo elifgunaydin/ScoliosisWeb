@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container" style="max-width: 1200px;"> 
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-bottom: 20px;">
+        <h1 style="margin: 0; color: #2c3e50;">Analiz Sonucu</h1>
+        <a href="/" class="btn btn-secondary">Yeni Analiz</a>
+    </div>
+
+    {% if error %}
+        <div class="flash-msg flash-error">{{ error }}</div>
+    {% else %}
+    
+    <div style="background-color: #f1f8e9; border: 1px solid #2ecc71; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 30px;">
+        <h2 style="margin: 0; color: #27ae60; display: flex; align-items: center; justify-content: center; gap: 15px;">
+            
+            <span>Hesaplanan Cobb Açısı: <span style="font-size: 1.3em; font-weight: bold;">{{ cobb_angle }}°</span></span>
+            
+            <span style="color: #bdc3c7;">|</span>
+            
+            <span style="font-size: 0.9em; padding: 5px 15px; border-radius: 20px; color: white; background-color: {{ diagnosis_color }};">
+                {{ diagnosis }}
+            </span>
+
+        </h2>
+    </div>
+
+    <div class="result-grid" style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
+        
+        <div class="image-card" style="flex: 1; min-width: 300px; max-width: 400px; padding: 15px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-radius: 8px;">
+            <h3 style="color: #34495e; text-align: center; border-bottom: 1px solid #eee; padding-bottom: 10px;">1. Orijinal Görüntü</h3>
+            <img src="{{ filename }}" class="img-fluid" style="width: 100%; border-radius: 4px;" alt="Orijinal Röntgen">
+            <p style="color: #777; font-size: 0.9em; margin-top: 10px; text-align: center;">Ham Görüntü</p>
+        </div>
+        
+        <div class="image-card" style="flex: 1; min-width: 300px; max-width: 400px; padding: 15px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-radius: 8px; border: 2px solid #3498db;">
+            <h3 style="color: #3498db; text-align: center; border-bottom: 1px solid #eee; padding-bottom: 10px;">2. Omurga Segmentasyonu</h3>
+            <img src="{{ mask_image }}" class="img-fluid" style="width: 100%; border-radius: 4px; background-color: black;" alt="Omurga Maskesi">
+            <div style="margin-top: 15px; background: #eaf2f8; padding: 10px; border-radius: 5px; text-align: center;">
+                <strong style="color: #3498db;">✔ Maske Çıkarıldı</strong><br>
+                <small>Saf Model Çıktısı</small>
+            </div>
+        </div>
+
+        <div class="image-card" style="flex: 1; min-width: 300px; max-width: 400px; padding: 15px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-radius: 8px; border: 2px solid #2ecc71;">
+            <h3 style="color: #27ae60; text-align: center; border-bottom: 1px solid #eee; padding-bottom: 10px;">3. Cobb Açısı Analizi</h3>
+            <img src="{{ processed_image_data }}" class="img-fluid" style="width: 100%; border-radius: 4px;" alt="İşlenmiş Röntgen">
+            <div style="margin-top: 15px; background: #e8f8f5; padding: 10px; border-radius: 5px; text-align: center;">
+                <strong style="color: #27ae60;">✔ Ölçüm Tamamlandı</strong><br>
+                <small>Eğim Çizgileri ve Hesaplama</small>
+            </div>
+        </div>
+
+    </div>
+    {% endif %}
+</div>
+
+<div style="margin-top: 40px; border-top: 2px dashed #bdc3c7; padding-top: 20px;">
+    <h4 style="color: #7f8c8d; text-align: center; margin-bottom: 15px;">ℹ️ Skolyoz Derecelendirme Rehberi</h4>
+    
+    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        
+        <div style="background: #ecf0f1; padding: 10px 20px; border-radius: 6px; text-align: center;">
+            <strong style="display: block; color: #27ae60;">Normal</strong>
+            <small style="color: #555;">&lt; 10°</small>
+        </div>
+
+        <div style="background: #ecf0f1; padding: 10px 20px; border-radius: 6px; text-align: center;">
+            <strong style="display: block; color: #f1c40f;">Hafif</strong>
+            <small style="color: #555;">10° – 25°</small>
+        </div>
+
+        <div style="background: #ecf0f1; padding: 10px 20px; border-radius: 6px; text-align: center;">
+            <strong style="display: block; color: #e67e22;">Orta</strong>
+            <small style="color: #555;">25° – 40°</small>
+        </div>
+
+        <div style="background: #ecf0f1; padding: 10px 20px; border-radius: 6px; text-align: center;">
+            <strong style="display: block; color: #c0392b;">Şiddetli</strong>
+            <small style="color: #555;">40° – 80°</small>
+        </div>
+
+        <div style="background: #ecf0f1; padding: 10px 20px; border-radius: 6px; text-align: center;">
+            <strong style="display: block; color: #8e44ad;">Çok Şiddetli</strong>
+            <small style="color: #555;">80° +</small>
+        </div>
+
+    </div>
+    <p style="text-align: center; color: #95a5a6; font-size: 0.8em; margin-top: 10px;">
+        *Bu sınıflandırma genel tıbbi SRS (Scoliosis Research Society) standartlarına dayanmaktadır. Kesin tanı için doktora başvurunuz.
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skolyoz Tanı Sistemi</title>
+    <!-- CSS Dosyasını Bağlıyoruz -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- ÜST MENÜ  -->
+    {% if current_user.is_authenticated %}
+    <div class="navbar">
+        <div class="brand">
+            <span style="font-size: 1.4em; font-weight: bold;"> SkolyozAI</span>
+        </div>
+        <div class="menu">
+            <a href="/">Yeni Analiz</a>
+            <a href="/dashboard">Geçmiş Sonuçlar</a>
+            <span class="user-info">{{ current_user.username }} ({{ current_user.role }})</span>
+            <a href="/logout" style="background: #e74c3c; padding: 5px 10px; border-radius: 4px; margin-left: 15px;">Çıkış</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="navbar" style="justify-content: center;">
+        <span style="font-size: 1.4em; font-weight: bold;"> Skolyoz Tanı Sistemi</span>
+    </div>
+    {% endif %}
+
+    <!-- Hata/Başarı Uyarıları -->
+    <div class="flash-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+{% endfor %}
+          {% endif %}
+        {% endwith %}
+    </div>
+
+    {% block content %}{% endblock %}
+
+</body>
+</html>

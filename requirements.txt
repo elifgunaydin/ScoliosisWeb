@@ -1,0 +1,15 @@
+Flask
+opencv-python-headless
+numpy
+Pillow
+scikit-image
+Flask-SQLAlchemy
+Flask-Login
+psycopg2-binary
+supabase
+requests
+torch
+torchvision
+albumentations
+matplotlib
+tqdm

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+<script>
+    function toggleDoctorCode() {
+        var role = document.getElementById("role").value;
+        var codeDiv = document.getElementById("doctor-code-div");
+        
+        // Backend 'doctor' değeri beklediği için kontrolü buna göre yapıyoruz
+        codeDiv.style.display = (role === "doctor") ? "block" : "none";
+    }
+</script>
+
+<div class="form-box">
+    <h2 style="color: #2c3e50;">Kayıt Ol</h2>
+    <form method="POST">
+        <input type="text" name="username" placeholder="Kullanıcı Adı" required style="width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box;">
+        <input type="password" name="password" placeholder="Şifre" required style="width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box;">
+        
+        <label style="display: block; text-align: left; margin-top: 10px; color: #666; font-weight: bold;">Rol Seçin:</label>
+        
+        <select name="role" id="role" onchange="toggleDoctorCode()" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+            <option value="patient">Hasta</option>  <option value="doctor">Doktor</option>  </select>
+        
+        <div id="doctor-code-div" style="display:none;">
+            <input type="text" name="doctor_code" placeholder="Doktor Doğrulama Kodu (MED123)" style="width: 100%; padding: 10px; box-sizing: border-box;">
+        </div>
+
+        <button type="submit" style="width: 100%; margin-top: 15px; padding: 10px; background-color: #3498db; color: white; border: none; cursor: pointer;">Kayıt Ol</button>
+    </form>
+    
+    <p style="margin-top: 20px; font-size: 0.9em;">Zaten üye misiniz? <a href="{{ url_for('login') }}" style="color: #3498db; font-weight: bold;">Giriş Yap</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="form-box">
+    <h2 style="color: #2c3e50; margin-bottom: 10px;">Giriş Yap</h2>
+    <p style="color: #7f8c8d; margin-bottom: 20px;">Sisteme erişmek için bilgilerinizi girin.</p>
+    
+    <form method="POST">
+        <input type="text" name="username" placeholder="Kullanıcı Adı" required>
+        <input type="password" name="password" placeholder="Şifre" required>
+        <button type="submit" style="width: 100%; margin-top: 10px;">Giriş Yap</button>
+    </form>
+    
+    <p style="margin-top: 20px; font-size: 0.9em;">Hesabınız yok mu? <a href="/register" style="color: #3498db; font-weight: bold;">Kayıt Ol</a></p>
+</div>
+{% endblock %}

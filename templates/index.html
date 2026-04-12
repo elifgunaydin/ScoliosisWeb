@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <h1 style="border-bottom: 2px solid #3498db; padding-bottom: 10px; color: #2c3e50;">Röntgen Analizi Başlat</h1>
+    
+    {% if error %}
+        <div class="flash-msg flash-error">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" style="margin-top: 30px;">
+        
+        <!-- Sadece Doktorlar Hasta Adı Girebilsin -->
+        {% if role == 'doctor' %}
+        <div style="margin-bottom: 20px;">
+            <label style="font-weight: bold; color: #34495e;">1. Hasta Bilgisi:</label>
+            <input type="text" name="patient_name" placeholder="Hasta Adı Soyadı" required>
+        </div>
+        {% endif %}
+        
+        <div style="margin-bottom: 20px;">
+            <label style="font-weight: bold; color: #34495e; display: block;">2. Röntgen Görüntüsü:</label>
+            <input type="file" name="file" accept=".png, .jpg, .jpeg" required>
+            <small style="color: #7f8c8d;">Sadece .jpg, .jpeg ve .png formatları kabul edilir.</small>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: right;">
+            <input type="submit" value="Yükle ve Analiz Et" class="btn">
+        </div>
+    </form>
+</div>
+{% endblock %}
